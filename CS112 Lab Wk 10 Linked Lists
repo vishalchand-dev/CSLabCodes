@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    string name;
+    Node* next; 
+};
+
+int main() {
+    // Array of made-up names
+    string names[6] = {"Vishal", "James", "Alice", "John", "Maria", "Ethan"}; 
+
+    Node* head = NULL;     // first node
+    Node* tail = NULL;     // last node
+
+    // Create nodes in a loop
+    for (int i = 0; i < 6; i++) {
+        Node* newNode = new Node;   // make new node
+        newNode->name = names[i];   // assign name
+        newNode->next = NULL;
+
+        if (head == NULL) {
+            // first node becomes head
+            head = newNode;
+            tail = newNode;
+        } else {
+            // attach new node to the end
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
+
+    // Print all names using a loop
+    Node* current = head;
+    while (current != NULL) {
+        cout << current->name << endl;
+        current = current->next;
+    }
+
+    // Free memory (loop again)
+    current = head;
+    while (current != NULL) {
+        Node* temp = current;
+        current = current->next;
+        delete temp;
+    }
+
+    return 0;
+}
